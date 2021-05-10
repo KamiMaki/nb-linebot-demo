@@ -43,13 +43,20 @@ def handle_message(event):
         ESG_news = json.loads(f.read())
     with open('5G_news.json',encoding='utf-8-sig', errors='ignore') as f:
         news_5G = json.loads(f.read())
+    with open('future.json',encoding='utf-8-sig', errors='ignore') as f:
+        future = json.loads(f.read())
     card_message = FlexSendMessage('card',card)
     latest_news_message = FlexSendMessage('latest_news',latest_news)
     ESG_news_message = FlexSendMessage('ESG_news',ESG_news)
     news_5G_message = FlexSendMessage('5G_news',news_5G)
+    future_message = FlexSendMessage('future',future)
     
-    defult = TextSendMessage(text='數字「1」或「圖卡」 ： 基金圖卡選單\n數字「2」或「觀點」 ： 投資觀點\n數字「3」或「休市日」 ： 休市日圖片')
-    quick_reply = TextSendMessage(text='可透過下方類別了解更多：',quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="5G", text="5G")), QuickReplyButton(action=MessageAction(label="ESG投資", text="ESG投資")),QuickReplyButton(action=MessageAction(label="CIO每周觀點", text="CIO每周觀點")), QuickReplyButton(action=MessageAction(label="股票", text="股票")),QuickReplyButton(action=MessageAction(label="固定收益", text="固定收益")),QuickReplyButton(action=MessageAction(label="新興市場債券", text="新興市場債券"))]))
+    
+    
+    
+    
+    defult = TextSendMessage(text='數字「1」或「基金」 ： 基金選擇器\n數字「2」或「觀點」 ： 投資觀點\n')
+    quick_reply = TextSendMessage(text='可透過下方類別了解更多：',quick_reply=QuickReply(items=[QuickReplyButton(action=MessageAction(label="5G", text="5G")), QuickReplyButton(action=MessageAction(label="ESG投資", text="ESG投資")),QuickReplyButton(action=MessageAction(label="CIO每周觀點", text="CIO每周觀點")), QuickReplyButton(action=MessageAction(label="投資展望", text="投資展望"))]))
     if event.message.text == '圖卡' or event.message.text == '1':
         line_bot_api.reply_message(event.reply_token,card_message)
     elif event.message.text == '觀點' or event.message.text == '2':
@@ -59,9 +66,15 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,[ESG_news_message,quick_reply])
     elif event.message.text == '5G':
         line_bot_api.reply_message(event.reply_token,[news_5G_message,quick_reply])
+    elif event.message.text == 'CIO每周觀點':
+        line_bot_api.reply_message(event.reply_token,[news_5G_message,quick_reply])
+    elif event.message.text == '投資展望':
+        line_bot_api.reply_message(event.reply_token,[future_message,quick_reply])
     else:
         line_bot_api.reply_message(event.reply_token,defult)
         #line_bot_api.reply_message(event.reply_token,[card_message,quick_reply])
+        
+        
         
 import os
 if __name__ == "__main__":
