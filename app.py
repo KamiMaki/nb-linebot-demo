@@ -161,28 +161,12 @@ def handle_message(event):
         #line_bot_api.reply_message(event.reply_token,card_message)
         line_bot_api.reply_message(event.reply_token,[CIO_news_message,quick_reply])
     elif event.message.text == 'ESG投資':
-        now = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
-        df = pd.DataFrame([[_id],['ESG投資'],[now]]).transpose()
-        df.columns = ["UID","Click","Time"]
-        db.insert(DB,'user_record',df)
         line_bot_api.reply_message(event.reply_token,[ESG_news_message,quick_reply])
     elif event.message.text == '5G':
-        now = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
-        df = pd.DataFrame([[_id],['5G'],[now]]).transpose()
-        df.columns = ["UID","Click","Time"]
-        db.insert(DB,'user_record',df)
         line_bot_api.reply_message(event.reply_token,[news_5G_message,quick_reply])
     elif event.message.text == 'CIO每周觀點':
-        now = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
-        df = pd.DataFrame([[_id],['CIO每周觀點'],[now]]).transpose()
-        df.columns = ["UID","Click","Time"]
-        db.insert(DB,'user_record',df)
         line_bot_api.reply_message(event.reply_token,[CIO_news_message,quick_reply])
     elif event.message.text == '投資展望':
-        now = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
-        df = pd.DataFrame([[_id],['投資展望'],[now]]).transpose()
-        df.columns = ["UID","Click","Time"]
-        db.insert(DB,'user_record',df)
         line_bot_api.reply_message(event.reply_token,[future_message,quick_reply])
 
     else:
